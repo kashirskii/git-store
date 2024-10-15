@@ -1,0 +1,41 @@
+@font-face {
+    font-family: 'GeistVF';
+    src: url('../../app/fonts/GeistVF.woff');
+}
+
+.ui-button {
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 80px;
+    display: flex;
+    align-items: center;
+    font-family: 'GeistVF';
+    font-weight: 500; 
+    line-height: 1.3;
+
+    &_view {
+        &_contained {
+            background-color: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
+        &_outlined {
+            background-color: transparent;
+            color: #000;
+            border-color: currentColor;
+        }
+    }
+
+    &_size {
+        &_s {
+           padding: 4px 12px; 
+        }
+        &_m {
+            padding: 8px 24px;
+        }
+        &_l {
+            padding: 16px 48px;
+        }
+    }
+}
