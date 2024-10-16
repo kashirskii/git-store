@@ -1,3 +1,5 @@
+'use server'
+
 import "./Button.scss";
 import { block } from "@/helpers/cn";
 

@@ -1,4 +1,4 @@
-import { Button } from "@/components/Button/Button";
+import { Button } from "@/components";
 
 export default function Home() {
   return (
@@ -7,7 +7,7 @@ export default function Home() {
       More text for example
 
       </div>
-    <Button>Add to card</Button>
+    <Button onClick={() => console.log(123)}>Add to card</Button>
 
     </>
   );
