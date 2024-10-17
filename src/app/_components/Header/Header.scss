@@ -1,0 +1,65 @@
+.header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    margin: 0 3.4vw;
+
+    a {
+        text-decoration: none;
+        color: #000;
+        transition: opacity .1s ease-in;
+
+        &:hover {
+            opacity: .7;
+        }
+    }
+
+    nav {
+        height: 100%;
+    }
+
+    &__leftNav {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    &__middleNav, &__rightNav {
+        ul {
+            height: 100%;
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+        }
+
+        li {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    &__middleNav {
+        li {
+            border-bottom: 2px solid transparent;
+            transition: opacity .1s ease-in-out;
+            padding: 0 20px;
+        }
+
+        &-sideMenu {
+            &:hover {
+                border-bottom: 2px solid black;
+            }
+        }
+    }
+
+    &__rightNav {
+        ul {
+            gap: 20px;
+        }
+    }
+}

@@ -1,4 +1,4 @@
-'use server'
+"use client";
 
 import "./Button.scss";
 import { block } from "@/helpers/cn";
@@ -13,9 +13,9 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const b = block("button");
 
-const Button = ({ children, view = "contained", size = "m" }: ButtonProps) => {
+const Button = ({ children, view = "contained", size = "m", ...props }: ButtonProps) => {
   return (
-    <button className={b({ view, size })}>
+    <button {...props} className={b({ view, size })}>
       <span>{children}</span>
     </button>
   );

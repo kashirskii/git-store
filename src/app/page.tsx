@@ -1,14 +1,13 @@
 import { Button } from "@/components";
+import { AccountIcon } from "@icons";
 
 export default function Home() {
+  const handler = () => {
+    console.log('123')
+  }
+
   return (
     <>
-      <div>
-      More text for example
-
-      </div>
-    <Button onClick={() => console.log(123)}>Add to card</Button>
-
     </>
   );
 }
