@@ -1,0 +1,12 @@
+query getHeader {
+  header {
+    documentId
+    title
+    middle_nav {
+    ...MiddleNavFragment
+    }
+    createdAt
+    updatedAt
+    publishedAt
+  }
+}

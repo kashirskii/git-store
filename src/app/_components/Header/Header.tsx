@@ -1,13 +1,16 @@
 import { RightNav } from "./RightNav"
-import { MiddleNav } from "./MiddleNav"
 import './Header.scss'
 import Link from "next/link"
+import { gql } from "@/graphql/client";
+import { MiddleNav } from "./MiddleNav";
 
-const Header = () => {
+const Header = async() => {
+    const { header } = await gql.getHeader()
+
     return (
         <header className="header">
             <nav className="header__leftNav"><Link href={""}>GIT STORE</Link></nav>
-            <MiddleNav/>
+            <MiddleNav links={header.middle_nav.Link}/>
             <RightNav/>
         </header>
     )

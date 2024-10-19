@@ -1,0 +1,10 @@
+fragment MiddleNavFragment on MiddleNav {
+    documentId
+    title
+    Link {
+        ...LinkFragment
+    }
+    createdAt
+    updatedAt
+    publishedAt
+}

@@ -78,11 +78,6 @@ export type ComponentUiLinkListLinkArgs = {
   sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type ComponentUiLinkListInput = {
-  readonly Link: InputMaybe<ReadonlyArray<InputMaybe<ComponentUiLinkInput>>>;
-  readonly id: InputMaybe<Scalars['ID']['input']>;
-};
-
 export type DateTimeFilterInput = {
   readonly and: InputMaybe<ReadonlyArray<InputMaybe<Scalars['DateTime']['input']>>>;
   readonly between: InputMaybe<ReadonlyArray<InputMaybe<Scalars['DateTime']['input']>>>;
@@ -144,25 +139,23 @@ export type FloatFilterInput = {
   readonly startsWith: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type GenericMorph = ComponentUiLink | ComponentUiLinkList | Global | I18NLocale | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = ComponentUiLink | ComponentUiLinkList | Header | I18NLocale | MiddleNav | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
-export type Global = {
-  readonly __typename?: 'Global';
-  readonly MiddleNav: ComponentUiLinkList;
+export type Header = {
+  readonly __typename?: 'Header';
   readonly createdAt: Maybe<Scalars['DateTime']['output']>;
   readonly documentId: Scalars['ID']['output'];
+  readonly middle_nav: Maybe<MiddleNav>;
   readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
-  readonly siteDescription: Scalars['String']['output'];
-  readonly siteName: Scalars['String']['output'];
+  readonly title: Scalars['String']['output'];
   readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
 };
 
-export type GlobalInput = {
-  readonly MiddleNav: InputMaybe<ComponentUiLinkListInput>;
+export type HeaderInput = {
   readonly locale: InputMaybe<Scalars['String']['input']>;
+  readonly middle_nav: InputMaybe<Scalars['ID']['input']>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
-  readonly siteDescription: InputMaybe<Scalars['String']['input']>;
-  readonly siteName: InputMaybe<Scalars['String']['input']>;
+  readonly title: InputMaybe<Scalars['String']['input']>;
 };
 
 export type I18NLocale = {
@@ -270,17 +263,63 @@ export type JsonFilterInput = {
   readonly startsWith: InputMaybe<Scalars['JSON']['input']>;
 };
 
+export type MiddleNav = {
+  readonly __typename?: 'MiddleNav';
+  readonly Link: Maybe<ReadonlyArray<Maybe<ComponentUiLink>>>;
+  readonly createdAt: Maybe<Scalars['DateTime']['output']>;
+  readonly documentId: Scalars['ID']['output'];
+  readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
+  readonly title: Scalars['String']['output'];
+  readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type MiddleNavLinkArgs = {
+  filters: InputMaybe<ComponentUiLinkFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MiddleNavEntityResponseCollection = {
+  readonly __typename?: 'MiddleNavEntityResponseCollection';
+  readonly nodes: ReadonlyArray<MiddleNav>;
+  readonly pageInfo: Pagination;
+};
+
+export type MiddleNavFiltersInput = {
+  readonly Link: InputMaybe<ComponentUiLinkFiltersInput>;
+  readonly and: InputMaybe<ReadonlyArray<InputMaybe<MiddleNavFiltersInput>>>;
+  readonly createdAt: InputMaybe<DateTimeFilterInput>;
+  readonly documentId: InputMaybe<IdFilterInput>;
+  readonly locale: InputMaybe<StringFilterInput>;
+  readonly localizations: InputMaybe<MiddleNavFiltersInput>;
+  readonly not: InputMaybe<MiddleNavFiltersInput>;
+  readonly or: InputMaybe<ReadonlyArray<InputMaybe<MiddleNavFiltersInput>>>;
+  readonly publishedAt: InputMaybe<DateTimeFilterInput>;
+  readonly title: InputMaybe<StringFilterInput>;
+  readonly updatedAt: InputMaybe<DateTimeFilterInput>;
+};
+
+export type MiddleNavInput = {
+  readonly Link: InputMaybe<ReadonlyArray<InputMaybe<ComponentUiLinkInput>>>;
+  readonly locale: InputMaybe<Scalars['String']['input']>;
+  readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
+  readonly title: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Mutation = {
   readonly __typename?: 'Mutation';
   /** Change user password. Confirm with the current password. */
   readonly changePassword: Maybe<UsersPermissionsLoginPayload>;
+  readonly createMiddleNav: Maybe<MiddleNav>;
   readonly createReviewWorkflowsWorkflow: Maybe<ReviewWorkflowsWorkflow>;
   readonly createReviewWorkflowsWorkflowStage: Maybe<ReviewWorkflowsWorkflowStage>;
   /** Create a new role */
   readonly createUsersPermissionsRole: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   readonly createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
-  readonly deleteGlobal: Maybe<DeleteMutationResponse>;
+  readonly deleteHeader: Maybe<DeleteMutationResponse>;
+  readonly deleteMiddleNav: Maybe<DeleteMutationResponse>;
   readonly deleteReviewWorkflowsWorkflow: Maybe<DeleteMutationResponse>;
   readonly deleteReviewWorkflowsWorkflowStage: Maybe<DeleteMutationResponse>;
   readonly deleteUploadFile: Maybe<UploadFile>;
@@ -297,7 +336,8 @@ export type Mutation = {
   readonly register: UsersPermissionsLoginPayload;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   readonly resetPassword: Maybe<UsersPermissionsLoginPayload>;
-  readonly updateGlobal: Maybe<Global>;
+  readonly updateHeader: Maybe<Header>;
+  readonly updateMiddleNav: Maybe<MiddleNav>;
   readonly updateReviewWorkflowsWorkflow: Maybe<ReviewWorkflowsWorkflow>;
   readonly updateReviewWorkflowsWorkflowStage: Maybe<ReviewWorkflowsWorkflowStage>;
   readonly updateUploadFile: UploadFile;
@@ -312,6 +352,12 @@ export type MutationChangePasswordArgs = {
   currentPassword: Scalars['String']['input'];
   password: Scalars['String']['input'];
   passwordConfirmation: Scalars['String']['input'];
+};
+
+
+export type MutationCreateMiddleNavArgs = {
+  data: MiddleNavInput;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
@@ -334,6 +380,11 @@ export type MutationCreateUsersPermissionsRoleArgs = {
 
 export type MutationCreateUsersPermissionsUserArgs = {
   data: UsersPermissionsUserInput;
+};
+
+
+export type MutationDeleteMiddleNavArgs = {
+  documentId: Scalars['ID']['input'];
 };
 
 
@@ -389,8 +440,15 @@ export type MutationResetPasswordArgs = {
 };
 
 
-export type MutationUpdateGlobalArgs = {
-  data: GlobalInput;
+export type MutationUpdateHeaderArgs = {
+  data: HeaderInput;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type MutationUpdateMiddleNavArgs = {
+  data: MiddleNavInput;
+  documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
 
@@ -448,11 +506,14 @@ export enum PublicationStatus {
 
 export type Query = {
   readonly __typename?: 'Query';
-  readonly global: Maybe<Global>;
+  readonly header: Maybe<Header>;
   readonly i18NLocale: Maybe<I18NLocale>;
   readonly i18NLocales: ReadonlyArray<Maybe<I18NLocale>>;
   readonly i18NLocales_connection: Maybe<I18NLocaleEntityResponseCollection>;
   readonly me: Maybe<UsersPermissionsMe>;
+  readonly middleNav: Maybe<MiddleNav>;
+  readonly middleNavs: ReadonlyArray<Maybe<MiddleNav>>;
+  readonly middleNavs_connection: Maybe<MiddleNavEntityResponseCollection>;
   readonly reviewWorkflowsWorkflow: Maybe<ReviewWorkflowsWorkflow>;
   readonly reviewWorkflowsWorkflowStage: Maybe<ReviewWorkflowsWorkflowStage>;
   readonly reviewWorkflowsWorkflowStages: ReadonlyArray<Maybe<ReviewWorkflowsWorkflowStage>>;
@@ -471,7 +532,7 @@ export type Query = {
 };
 
 
-export type QueryGlobalArgs = {
+export type QueryHeaderArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
@@ -492,6 +553,28 @@ export type QueryI18NLocalesArgs = {
 
 export type QueryI18NLocales_ConnectionArgs = {
   filters: InputMaybe<I18NLocaleFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryMiddleNavArgs = {
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryMiddleNavsArgs = {
+  filters: InputMaybe<MiddleNavFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryMiddleNavs_ConnectionArgs = {
+  filters: InputMaybe<MiddleNavFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
   status?: InputMaybe<PublicationStatus>;
@@ -1014,19 +1097,48 @@ export type UsersPermissionsUserRelationResponseCollection = {
   readonly nodes: ReadonlyArray<UsersPermissionsUser>;
 };
 
-export type GetPageQueryVariables = Exact<{ [key: string]: never; }>;
+export type LinkFragmentFragment = { readonly __typename?: 'ComponentUiLink', readonly id: string, readonly title: string, readonly href: string };
+
+export type MiddleNavFragmentFragment = { readonly __typename?: 'MiddleNav', readonly documentId: string, readonly title: string, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any, readonly Link: ReadonlyArray<{ readonly __typename?: 'ComponentUiLink', readonly id: string, readonly title: string, readonly href: string }> };
+
+export type GetHeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPageQuery = { readonly __typename?: 'Query', readonly global: { readonly __typename?: 'Global', readonly siteName: string } };
+export type GetHeaderQuery = { readonly __typename?: 'Query', readonly header: { readonly __typename?: 'Header', readonly documentId: string, readonly title: string, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any, readonly middle_nav: { readonly __typename?: 'MiddleNav', readonly documentId: string, readonly title: string, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any, readonly Link: ReadonlyArray<{ readonly __typename?: 'ComponentUiLink', readonly id: string, readonly title: string, readonly href: string }> } } };
 
-
-export const GetPageDocument = gql`
-    query getPage {
-  global {
-    siteName
-  }
+export const LinkFragmentFragmentDoc = gql`
+    fragment LinkFragment on ComponentUiLink {
+  id
+  title
+  href
 }
     `;
+export const MiddleNavFragmentFragmentDoc = gql`
+    fragment MiddleNavFragment on MiddleNav {
+  documentId
+  title
+  Link {
+    ...LinkFragment
+  }
+  createdAt
+  updatedAt
+  publishedAt
+}
+    ${LinkFragmentFragmentDoc}`;
+export const GetHeaderDocument = gql`
+    query getHeader {
+  header {
+    documentId
+    title
+    middle_nav {
+      ...MiddleNavFragment
+    }
+    createdAt
+    updatedAt
+    publishedAt
+  }
+}
+    ${MiddleNavFragmentFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
 
@@ -1035,8 +1147,8 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    getPage(variables?: GetPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetPageQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetPageQuery>(GetPageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getPage', 'query', variables);
+    getHeader(variables?: GetHeaderQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetHeaderQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetHeaderQuery>(GetHeaderDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getHeader', 'query', variables);
     }
   };
 }

@@ -9,7 +9,7 @@
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "generate": "graphql codegen --config ./src/graphql/documents/codegen.ts"
+    "generate": "graphql codegen --config ./src/graphql/codegen.ts"
   },
   "dependencies": {
     "@bem-react/classname": "^1.6.0",
