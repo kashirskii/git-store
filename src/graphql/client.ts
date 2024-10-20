@@ -5,6 +5,9 @@ import { getSdk } from "./__generate__";
 const client = new GraphQLClient(`${process.env.GRAPHQL_URL}`, {
     headers: {
         Authorization: `Bearer ${process.env.CMS_TOKEN}`
+    },
+    next: {
+        revalidate: 0
     }
 })
 

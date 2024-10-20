@@ -19,6 +19,60 @@ export type Scalars = {
   JSON: { input: any; output: any; }
 };
 
+export type Banner = {
+  readonly __typename?: 'Banner';
+  readonly Link: Maybe<ComponentUiLink>;
+  readonly createdAt: Maybe<Scalars['DateTime']['output']>;
+  readonly documentId: Scalars['ID']['output'];
+  readonly media: ReadonlyArray<Maybe<UploadFile>>;
+  readonly media_connection: UploadFileRelationResponseCollection;
+  readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
+  readonly title: Scalars['String']['output'];
+  readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type BannerMediaArgs = {
+  filters: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type BannerMedia_ConnectionArgs = {
+  filters: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type BannerEntityResponseCollection = {
+  readonly __typename?: 'BannerEntityResponseCollection';
+  readonly nodes: ReadonlyArray<Banner>;
+  readonly pageInfo: Pagination;
+};
+
+export type BannerFiltersInput = {
+  readonly Link: InputMaybe<ComponentUiLinkFiltersInput>;
+  readonly and: InputMaybe<ReadonlyArray<InputMaybe<BannerFiltersInput>>>;
+  readonly createdAt: InputMaybe<DateTimeFilterInput>;
+  readonly documentId: InputMaybe<IdFilterInput>;
+  readonly locale: InputMaybe<StringFilterInput>;
+  readonly localizations: InputMaybe<BannerFiltersInput>;
+  readonly not: InputMaybe<BannerFiltersInput>;
+  readonly or: InputMaybe<ReadonlyArray<InputMaybe<BannerFiltersInput>>>;
+  readonly publishedAt: InputMaybe<DateTimeFilterInput>;
+  readonly title: InputMaybe<StringFilterInput>;
+  readonly updatedAt: InputMaybe<DateTimeFilterInput>;
+};
+
+export type BannerInput = {
+  readonly Link: InputMaybe<ComponentUiLinkInput>;
+  readonly locale: InputMaybe<Scalars['String']['input']>;
+  readonly media: InputMaybe<ReadonlyArray<InputMaybe<Scalars['ID']['input']>>>;
+  readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
+  readonly title: InputMaybe<Scalars['String']['input']>;
+};
+
 export type BooleanFilterInput = {
   readonly and: InputMaybe<ReadonlyArray<InputMaybe<Scalars['Boolean']['input']>>>;
   readonly between: InputMaybe<ReadonlyArray<InputMaybe<Scalars['Boolean']['input']>>>;
@@ -139,7 +193,7 @@ export type FloatFilterInput = {
   readonly startsWith: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type GenericMorph = ComponentUiLink | ComponentUiLinkList | Header | I18NLocale | MiddleNav | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Banner | ComponentUiLink | ComponentUiLinkList | Header | HomePage | I18NLocale | MiddleNav | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   readonly __typename?: 'Header';
@@ -154,6 +208,23 @@ export type Header = {
 export type HeaderInput = {
   readonly locale: InputMaybe<Scalars['String']['input']>;
   readonly middle_nav: InputMaybe<Scalars['ID']['input']>;
+  readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
+  readonly title: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomePage = {
+  readonly __typename?: 'HomePage';
+  readonly banner: Maybe<Banner>;
+  readonly createdAt: Maybe<Scalars['DateTime']['output']>;
+  readonly documentId: Scalars['ID']['output'];
+  readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
+  readonly title: Scalars['String']['output'];
+  readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type HomePageInput = {
+  readonly banner: InputMaybe<Scalars['ID']['input']>;
+  readonly locale: InputMaybe<Scalars['String']['input']>;
   readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
   readonly title: InputMaybe<Scalars['String']['input']>;
 };
@@ -311,6 +382,7 @@ export type Mutation = {
   readonly __typename?: 'Mutation';
   /** Change user password. Confirm with the current password. */
   readonly changePassword: Maybe<UsersPermissionsLoginPayload>;
+  readonly createBanner: Maybe<Banner>;
   readonly createMiddleNav: Maybe<MiddleNav>;
   readonly createReviewWorkflowsWorkflow: Maybe<ReviewWorkflowsWorkflow>;
   readonly createReviewWorkflowsWorkflowStage: Maybe<ReviewWorkflowsWorkflowStage>;
@@ -318,7 +390,9 @@ export type Mutation = {
   readonly createUsersPermissionsRole: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   readonly createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  readonly deleteBanner: Maybe<DeleteMutationResponse>;
   readonly deleteHeader: Maybe<DeleteMutationResponse>;
+  readonly deleteHomePage: Maybe<DeleteMutationResponse>;
   readonly deleteMiddleNav: Maybe<DeleteMutationResponse>;
   readonly deleteReviewWorkflowsWorkflow: Maybe<DeleteMutationResponse>;
   readonly deleteReviewWorkflowsWorkflowStage: Maybe<DeleteMutationResponse>;
@@ -336,7 +410,9 @@ export type Mutation = {
   readonly register: UsersPermissionsLoginPayload;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   readonly resetPassword: Maybe<UsersPermissionsLoginPayload>;
+  readonly updateBanner: Maybe<Banner>;
   readonly updateHeader: Maybe<Header>;
+  readonly updateHomePage: Maybe<HomePage>;
   readonly updateMiddleNav: Maybe<MiddleNav>;
   readonly updateReviewWorkflowsWorkflow: Maybe<ReviewWorkflowsWorkflow>;
   readonly updateReviewWorkflowsWorkflowStage: Maybe<ReviewWorkflowsWorkflowStage>;
@@ -352,6 +428,12 @@ export type MutationChangePasswordArgs = {
   currentPassword: Scalars['String']['input'];
   password: Scalars['String']['input'];
   passwordConfirmation: Scalars['String']['input'];
+};
+
+
+export type MutationCreateBannerArgs = {
+  data: BannerInput;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
@@ -380,6 +462,11 @@ export type MutationCreateUsersPermissionsRoleArgs = {
 
 export type MutationCreateUsersPermissionsUserArgs = {
   data: UsersPermissionsUserInput;
+};
+
+
+export type MutationDeleteBannerArgs = {
+  documentId: Scalars['ID']['input'];
 };
 
 
@@ -440,8 +527,21 @@ export type MutationResetPasswordArgs = {
 };
 
 
+export type MutationUpdateBannerArgs = {
+  data: BannerInput;
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
 export type MutationUpdateHeaderArgs = {
   data: HeaderInput;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type MutationUpdateHomePageArgs = {
+  data: HomePageInput;
   status?: InputMaybe<PublicationStatus>;
 };
 
@@ -506,7 +606,11 @@ export enum PublicationStatus {
 
 export type Query = {
   readonly __typename?: 'Query';
+  readonly banner: Maybe<Banner>;
+  readonly banners: ReadonlyArray<Maybe<Banner>>;
+  readonly banners_connection: Maybe<BannerEntityResponseCollection>;
   readonly header: Maybe<Header>;
+  readonly homePage: Maybe<HomePage>;
   readonly i18NLocale: Maybe<I18NLocale>;
   readonly i18NLocales: ReadonlyArray<Maybe<I18NLocale>>;
   readonly i18NLocales_connection: Maybe<I18NLocaleEntityResponseCollection>;
@@ -532,7 +636,34 @@ export type Query = {
 };
 
 
+export type QueryBannerArgs = {
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryBannersArgs = {
+  filters: InputMaybe<BannerFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryBanners_ConnectionArgs = {
+  filters: InputMaybe<BannerFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
 export type QueryHeaderArgs = {
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryHomePageArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
@@ -871,6 +1002,11 @@ export type UploadFileFiltersInput = {
   readonly width: InputMaybe<IntFilterInput>;
 };
 
+export type UploadFileRelationResponseCollection = {
+  readonly __typename?: 'UploadFileRelationResponseCollection';
+  readonly nodes: ReadonlyArray<UploadFile>;
+};
+
 export type UsersPermissionsCreateRolePayload = {
   readonly __typename?: 'UsersPermissionsCreateRolePayload';
   readonly ok: Scalars['Boolean']['output'];
@@ -1097,7 +1233,13 @@ export type UsersPermissionsUserRelationResponseCollection = {
   readonly nodes: ReadonlyArray<UsersPermissionsUser>;
 };
 
+export type BannerFragmentFragment = { readonly __typename?: 'Banner', readonly documentId: string, readonly title: string, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any, readonly media_connection: { readonly __typename?: 'UploadFileRelationResponseCollection', readonly nodes: ReadonlyArray<{ readonly __typename?: 'UploadFile', readonly documentId: string, readonly name: string, readonly alternativeText: string, readonly caption: string, readonly width: number, readonly height: number, readonly formats: any, readonly hash: string, readonly ext: string, readonly mime: string, readonly size: number, readonly url: string, readonly previewUrl: string, readonly provider: string, readonly provider_metadata: any, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any }> }, readonly media: ReadonlyArray<{ readonly __typename?: 'UploadFile', readonly documentId: string, readonly name: string, readonly alternativeText: string, readonly caption: string, readonly width: number, readonly height: number, readonly formats: any, readonly hash: string, readonly ext: string, readonly mime: string, readonly size: number, readonly url: string, readonly previewUrl: string, readonly provider: string, readonly provider_metadata: any, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any }>, readonly Link: { readonly __typename?: 'ComponentUiLink', readonly id: string, readonly title: string, readonly href: string } };
+
 export type LinkFragmentFragment = { readonly __typename?: 'ComponentUiLink', readonly id: string, readonly title: string, readonly href: string };
+
+export type MediaFragmentFragment = { readonly __typename?: 'UploadFile', readonly documentId: string, readonly name: string, readonly alternativeText: string, readonly caption: string, readonly width: number, readonly height: number, readonly formats: any, readonly hash: string, readonly ext: string, readonly mime: string, readonly size: number, readonly url: string, readonly previewUrl: string, readonly provider: string, readonly provider_metadata: any, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any };
+
+export type MediaConnectionFragmentFragment = { readonly __typename?: 'UploadFileRelationResponseCollection', readonly nodes: ReadonlyArray<{ readonly __typename?: 'UploadFile', readonly documentId: string, readonly name: string, readonly alternativeText: string, readonly caption: string, readonly width: number, readonly height: number, readonly formats: any, readonly hash: string, readonly ext: string, readonly mime: string, readonly size: number, readonly url: string, readonly previewUrl: string, readonly provider: string, readonly provider_metadata: any, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any }> };
 
 export type MiddleNavFragmentFragment = { readonly __typename?: 'MiddleNav', readonly documentId: string, readonly title: string, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any, readonly Link: ReadonlyArray<{ readonly __typename?: 'ComponentUiLink', readonly id: string, readonly title: string, readonly href: string }> };
 
@@ -1106,6 +1248,40 @@ export type GetHeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetHeaderQuery = { readonly __typename?: 'Query', readonly header: { readonly __typename?: 'Header', readonly documentId: string, readonly title: string, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any, readonly middle_nav: { readonly __typename?: 'MiddleNav', readonly documentId: string, readonly title: string, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any, readonly Link: ReadonlyArray<{ readonly __typename?: 'ComponentUiLink', readonly id: string, readonly title: string, readonly href: string }> } } };
 
+export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'HomePage', readonly documentId: string, readonly title: string, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any, readonly banner: { readonly __typename?: 'Banner', readonly documentId: string, readonly title: string, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any, readonly media_connection: { readonly __typename?: 'UploadFileRelationResponseCollection', readonly nodes: ReadonlyArray<{ readonly __typename?: 'UploadFile', readonly documentId: string, readonly name: string, readonly alternativeText: string, readonly caption: string, readonly width: number, readonly height: number, readonly formats: any, readonly hash: string, readonly ext: string, readonly mime: string, readonly size: number, readonly url: string, readonly previewUrl: string, readonly provider: string, readonly provider_metadata: any, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any }> }, readonly media: ReadonlyArray<{ readonly __typename?: 'UploadFile', readonly documentId: string, readonly name: string, readonly alternativeText: string, readonly caption: string, readonly width: number, readonly height: number, readonly formats: any, readonly hash: string, readonly ext: string, readonly mime: string, readonly size: number, readonly url: string, readonly previewUrl: string, readonly provider: string, readonly provider_metadata: any, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any }>, readonly Link: { readonly __typename?: 'ComponentUiLink', readonly id: string, readonly title: string, readonly href: string } } } };
+
+export const MediaFragmentFragmentDoc = gql`
+    fragment MediaFragment on UploadFile {
+  documentId
+  name
+  alternativeText
+  caption
+  width
+  height
+  formats
+  hash
+  ext
+  mime
+  size
+  url
+  previewUrl
+  provider
+  provider_metadata
+  createdAt
+  updatedAt
+  publishedAt
+}
+    `;
+export const MediaConnectionFragmentFragmentDoc = gql`
+    fragment MediaConnectionFragment on UploadFileRelationResponseCollection {
+  nodes {
+    ...MediaFragment
+  }
+}
+    ${MediaFragmentFragmentDoc}`;
 export const LinkFragmentFragmentDoc = gql`
     fragment LinkFragment on ComponentUiLink {
   id
@@ -1113,6 +1289,26 @@ export const LinkFragmentFragmentDoc = gql`
   href
 }
     `;
+export const BannerFragmentFragmentDoc = gql`
+    fragment BannerFragment on Banner {
+  documentId
+  title
+  media_connection {
+    ...MediaConnectionFragment
+  }
+  media {
+    ...MediaFragment
+  }
+  Link {
+    ...LinkFragment
+  }
+  createdAt
+  updatedAt
+  publishedAt
+}
+    ${MediaConnectionFragmentFragmentDoc}
+${MediaFragmentFragmentDoc}
+${LinkFragmentFragmentDoc}`;
 export const MiddleNavFragmentFragmentDoc = gql`
     fragment MiddleNavFragment on MiddleNav {
   documentId
@@ -1139,6 +1335,20 @@ export const GetHeaderDocument = gql`
   }
 }
     ${MiddleNavFragmentFragmentDoc}`;
+export const GetHomePageDocument = gql`
+    query getHomePage {
+  homePage {
+    documentId
+    title
+    banner {
+      ...BannerFragment
+    }
+    createdAt
+    updatedAt
+    publishedAt
+  }
+}
+    ${BannerFragmentFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
 
@@ -1149,6 +1359,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     getHeader(variables?: GetHeaderQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetHeaderQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetHeaderQuery>(GetHeaderDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getHeader', 'query', variables);
+    },
+    getHomePage(variables?: GetHomePageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetHomePageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetHomePageQuery>(GetHomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getHomePage', 'query', variables);
     }
   };
 }

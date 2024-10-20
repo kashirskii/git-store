@@ -9,7 +9,7 @@ const Header = async() => {
 
     return (
         <header className="header">
-            <nav className="header__leftNav"><Link href={""}>GIT STORE</Link></nav>
+            <nav className="header__leftNav"><Link href={""}>SONOS</Link></nav>
             <MiddleNav links={header.middle_nav.Link}/>
             <RightNav/>
         </header>

@@ -1,0 +1,15 @@
+.banner {
+    position: relative;
+    color: #fff;
+
+    article {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 50px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 600px;
+    }
+}
