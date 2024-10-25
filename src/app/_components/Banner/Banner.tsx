@@ -1,7 +1,6 @@
 import "./Banner.scss";
 import { Typography, Button } from "@/components";
 import { gql } from "@/graphql/client";
-import Link from "next/link";
 
 const Banner = async () => {
   const { homePage } = await gql.getHomePage();

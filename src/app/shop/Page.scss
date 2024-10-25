@@ -1,0 +1,9 @@
+main {
+    .products-container {
+        width: fit-content;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+    }
+}

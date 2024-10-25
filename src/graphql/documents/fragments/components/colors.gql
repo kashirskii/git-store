@@ -1,0 +1,7 @@
+fragment ColorsFragment on ComponentSettingsProductColor {
+    color
+    photo {
+        ...MediaFragment
+    }
+    HEX
+}

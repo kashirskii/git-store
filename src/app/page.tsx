@@ -1,10 +1,11 @@
-import { Typography } from "@/components";
 import { Banner } from "./_components/Banner/Banner";
 
-export default async function Home() {
+const Home = async() => {
   return (
     <>
     <Banner/>
     </>
   );
 }
+
+export default Home

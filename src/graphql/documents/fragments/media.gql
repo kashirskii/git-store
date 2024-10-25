@@ -1,10 +1,7 @@
 fragment MediaFragment on UploadFile {
-    documentId
     name
     alternativeText
     caption
-    width
-    height
     formats
     hash
     ext
@@ -14,7 +11,4 @@ fragment MediaFragment on UploadFile {
     previewUrl
     provider
     provider_metadata
-    createdAt
-    updatedAt
-    publishedAt
 }

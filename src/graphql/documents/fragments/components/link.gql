@@ -1,5 +1,4 @@
 fragment LinkFragment on ComponentUiLink {
-    id
     title
     href
 }

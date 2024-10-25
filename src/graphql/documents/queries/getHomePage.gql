@@ -1,12 +1,8 @@
 query getHomePage {
     homePage {
-        documentId
         title
         banner {
             ...BannerFragment
         }
-        createdAt
-        updatedAt
-        publishedAt
     }
 }

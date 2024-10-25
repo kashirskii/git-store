@@ -1,0 +1,10 @@
+fragment ProductFragment on Product {
+    documentId
+    name
+    price
+    description
+    Colors {
+        ...ColorsFragment
+    }
+    category
+}

@@ -1,16 +1,9 @@
 fragment BannerFragment on Banner {
-    documentId
     title
-    media_connection {
-        ...MediaConnectionFragment
-    }
     media {
         ...MediaFragment
     }
     Link {
         ...LinkFragment
     }
-    createdAt
-    updatedAt
-    publishedAt
 }
