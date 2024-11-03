@@ -1,6 +1,7 @@
 .ui-select-color {
     display: flex;
-    gap: 5px;
+    list-style-type: none;
+    
 
     label {
         display: block;
@@ -8,6 +9,7 @@
         height: 40px;
 
         & > span {
+            box-sizing: border-box;
             position: relative;
             display: block;
             border: 2px solid transparent;

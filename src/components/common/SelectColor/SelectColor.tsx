@@ -7,10 +7,10 @@ export interface ColorOption {
   HEX: string;
 }
 
-interface SelectColorProps {
+export interface SelectColorProps {
   options: ColorOption[];
   currentIndex: number;
-  setCurrentIndex: (...args: any) => void;
+  setCurrentIndex: (index: number) => void;
 }
 
 const SelectColor = ({
@@ -19,18 +19,20 @@ const SelectColor = ({
   setCurrentIndex,
 }: SelectColorProps) => {
   return (
-    <div className="ui-select-color">
+    <ul className="ui-select-color">
       {options.map((option, index) => {
         return (
-          <label key={option.color} onClick={() => setCurrentIndex(index)}>
-            <span className={index === currentIndex ? "active" : undefined}>
-              <span style={{ backgroundColor: option.HEX }} />
-            </span>
-            <input defaultValue={option.color} />
-          </label>
+          <li key={option.color} onClick={() => setCurrentIndex(index)}>
+            <label>
+              <span className={index === currentIndex ? "active" : undefined}>
+                <span style={{ backgroundColor: option.HEX }} />
+              </span>
+              <input defaultValue={option.color} />
+            </label>
+          </li>
         );
       })}
-    </div>
+    </ul>
   );
 };
 
