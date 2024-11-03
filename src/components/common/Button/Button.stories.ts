@@ -1,24 +1,32 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
+import { Button } from "./Button";
 
-import { Button } from './Button';
+import { fn } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react";
 
-export default {
-  title: 'UI/Button',
+const meta: Meta<typeof Button> = {
+  title: "UI/Button",
   component: Button,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
   args: { onClick: fn() },
-} as Meta;
+};
+
+export default meta;
 
 type Story = StoryObj<typeof Button>;
 
-export const Default: Story = {
+export const Сontained: Story = {
   args: {
-    children: 'Button',
-    view: 'contained'
-  }
+    children: "Button",
+    view: "contained",
+  },
+};
+
+export const Outlined: Story = {
+  args: {
+    children: "Button",
+    view: "outlined",
+  },
 };
 
