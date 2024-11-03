@@ -12,16 +12,21 @@ interface ProductTitleProps {
 
 const ProductTitle = ({ product }: ProductTitleProps) => {
   const colors = product.Colors.map(({ color, HEX }) => ({ color, HEX }));
-  const { currentIndex, set } = useSelect(colors)
+  const { currentIndex, set: setCurrentIndex } = useSelect(colors);
 
   return (
-    <section className="product-title">
-      <Link className="product-title__link-container" href={`/shop/${product.documentId}`}>
-        <img
-          width={`100%`}
-          src={`http://localhost:1337${product.Colors[currentIndex].photo[0].url}`}
-          alt="product image"
-        />
+    <li className="product-title">
+      <Link
+        className="product-title__link-container"
+        href={`/shop/${product.documentId}`}
+      >
+        <div>
+          <img
+            width={`100%`}
+            src={`http://localhost:1337${product.Colors[currentIndex].photo[0].url}`}
+            alt="product image"
+          />
+        </div>
         <Typography variant="title-2" tag="h4">
           {product.name}
         </Typography>
@@ -32,11 +37,15 @@ const ProductTitle = ({ product }: ProductTitleProps) => {
           {product.category}
         </Typography>
         <section>
-          <SelectColor options={colors} currentIndex={currentIndex} setCurrentIndex={set} />
+          <SelectColor
+            options={colors}
+            currentIndex={currentIndex}
+            setCurrentIndex={setCurrentIndex}
+          />
           <span>${product.price}</span>
         </section>
       </div>
-    </section>
+    </li>
   );
 };
 
