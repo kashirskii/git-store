@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { MiddleNav as MiddleNavType, ComponentUiLink } from "@/graphql/__generate__";
+import { GetHeaderQuery } from "@/graphql/__generate__";
 
 interface MiddleNavProps {
-  links: ReadonlyArray<ComponentUiLink>;
+  links: GetHeaderQuery['header']['middle_nav']['Link'];
 }
 
 const MiddleNav = async({ links }: MiddleNavProps) => {
