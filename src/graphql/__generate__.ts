@@ -98,6 +98,40 @@ export type BooleanFilterInput = {
   readonly startsWith: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type Category = {
+  readonly __typename?: 'Category';
+  readonly createdAt: Maybe<Scalars['DateTime']['output']>;
+  readonly documentId: Scalars['ID']['output'];
+  readonly name: Scalars['String']['output'];
+  readonly publishedAt: Maybe<Scalars['DateTime']['output']>;
+  readonly updatedAt: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type CategoryEntityResponseCollection = {
+  readonly __typename?: 'CategoryEntityResponseCollection';
+  readonly nodes: ReadonlyArray<Category>;
+  readonly pageInfo: Pagination;
+};
+
+export type CategoryFiltersInput = {
+  readonly and: InputMaybe<ReadonlyArray<InputMaybe<CategoryFiltersInput>>>;
+  readonly createdAt: InputMaybe<DateTimeFilterInput>;
+  readonly documentId: InputMaybe<IdFilterInput>;
+  readonly locale: InputMaybe<StringFilterInput>;
+  readonly localizations: InputMaybe<CategoryFiltersInput>;
+  readonly name: InputMaybe<StringFilterInput>;
+  readonly not: InputMaybe<CategoryFiltersInput>;
+  readonly or: InputMaybe<ReadonlyArray<InputMaybe<CategoryFiltersInput>>>;
+  readonly publishedAt: InputMaybe<DateTimeFilterInput>;
+  readonly updatedAt: InputMaybe<DateTimeFilterInput>;
+};
+
+export type CategoryInput = {
+  readonly locale: InputMaybe<Scalars['String']['input']>;
+  readonly name: InputMaybe<Scalars['String']['input']>;
+  readonly publishedAt: InputMaybe<Scalars['DateTime']['input']>;
+};
+
 export type ComponentSettingsProductColor = {
   readonly __typename?: 'ComponentSettingsProductColor';
   readonly HEX: Maybe<Scalars['String']['output']>;
@@ -231,7 +265,7 @@ export type FloatFilterInput = {
   readonly startsWith: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type GenericMorph = Banner | ComponentSettingsProductColor | ComponentUiLink | ComponentUiLinkList | Header | HomePage | I18NLocale | MiddleNav | Product | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Banner | Category | ComponentSettingsProductColor | ComponentUiLink | ComponentUiLinkList | Header | HomePage | I18NLocale | MiddleNav | Product | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type Header = {
   readonly __typename?: 'Header';
@@ -421,6 +455,7 @@ export type Mutation = {
   /** Change user password. Confirm with the current password. */
   readonly changePassword: Maybe<UsersPermissionsLoginPayload>;
   readonly createBanner: Maybe<Banner>;
+  readonly createCategory: Maybe<Category>;
   readonly createMiddleNav: Maybe<MiddleNav>;
   readonly createProduct: Maybe<Product>;
   readonly createReviewWorkflowsWorkflow: Maybe<ReviewWorkflowsWorkflow>;
@@ -430,6 +465,7 @@ export type Mutation = {
   /** Create a new user */
   readonly createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
   readonly deleteBanner: Maybe<DeleteMutationResponse>;
+  readonly deleteCategory: Maybe<DeleteMutationResponse>;
   readonly deleteHeader: Maybe<DeleteMutationResponse>;
   readonly deleteHomePage: Maybe<DeleteMutationResponse>;
   readonly deleteMiddleNav: Maybe<DeleteMutationResponse>;
@@ -451,6 +487,7 @@ export type Mutation = {
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   readonly resetPassword: Maybe<UsersPermissionsLoginPayload>;
   readonly updateBanner: Maybe<Banner>;
+  readonly updateCategory: Maybe<Category>;
   readonly updateHeader: Maybe<Header>;
   readonly updateHomePage: Maybe<HomePage>;
   readonly updateMiddleNav: Maybe<MiddleNav>;
@@ -474,6 +511,12 @@ export type MutationChangePasswordArgs = {
 
 export type MutationCreateBannerArgs = {
   data: BannerInput;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type MutationCreateCategoryArgs = {
+  data: CategoryInput;
   status?: InputMaybe<PublicationStatus>;
 };
 
@@ -513,6 +556,11 @@ export type MutationCreateUsersPermissionsUserArgs = {
 
 
 export type MutationDeleteBannerArgs = {
+  documentId: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteCategoryArgs = {
   documentId: Scalars['ID']['input'];
 };
 
@@ -581,6 +629,13 @@ export type MutationResetPasswordArgs = {
 
 export type MutationUpdateBannerArgs = {
   data: BannerInput;
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type MutationUpdateCategoryArgs = {
+  data: CategoryInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
@@ -721,6 +776,9 @@ export type Query = {
   readonly banner: Maybe<Banner>;
   readonly banners: ReadonlyArray<Maybe<Banner>>;
   readonly banners_connection: Maybe<BannerEntityResponseCollection>;
+  readonly categories: ReadonlyArray<Maybe<Category>>;
+  readonly categories_connection: Maybe<CategoryEntityResponseCollection>;
+  readonly category: Maybe<Category>;
   readonly header: Maybe<Header>;
   readonly homePage: Maybe<HomePage>;
   readonly i18NLocale: Maybe<I18NLocale>;
@@ -769,6 +827,28 @@ export type QueryBanners_ConnectionArgs = {
   filters: InputMaybe<BannerFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryCategoriesArgs = {
+  filters: InputMaybe<CategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryCategories_ConnectionArgs = {
+  filters: InputMaybe<CategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryCategoryArgs = {
+  documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
 
@@ -1370,17 +1450,17 @@ export type UsersPermissionsUserRelationResponseCollection = {
   readonly nodes: ReadonlyArray<UsersPermissionsUser>;
 };
 
-export type BannerFragmentFragment = { readonly __typename?: 'Banner', readonly title: string, readonly media: ReadonlyArray<{ readonly __typename?: 'UploadFile', readonly name: string, readonly alternativeText: string, readonly caption: string, readonly formats: any, readonly hash: string, readonly ext: string, readonly mime: string, readonly size: number, readonly url: string, readonly previewUrl: string, readonly provider: string, readonly provider_metadata: any }>, readonly Link: { readonly __typename?: 'ComponentUiLink', readonly title: string, readonly href: string } };
+export type BannerFragmentFragment = { readonly __typename?: 'Banner', readonly title: string, readonly media: ReadonlyArray<{ readonly __typename?: 'UploadFile', readonly name: string, readonly alternativeText: string, readonly caption: string, readonly formats: any, readonly hash: string, readonly ext: string, readonly mime: string, readonly size: number, readonly url: string, readonly previewUrl: string, readonly provider: string, readonly provider_metadata: any }>, readonly Link: { readonly __typename?: 'ComponentUiLink', readonly id: string, readonly title: string, readonly href: string } };
 
 export type ProductFragmentFragment = { readonly __typename?: 'Product', readonly documentId: string, readonly name: string, readonly price: number, readonly description: string, readonly category: string, readonly Colors: ReadonlyArray<{ readonly __typename?: 'ComponentSettingsProductColor', readonly color: string, readonly HEX: string, readonly photo: ReadonlyArray<{ readonly __typename?: 'UploadFile', readonly name: string, readonly alternativeText: string, readonly caption: string, readonly formats: any, readonly hash: string, readonly ext: string, readonly mime: string, readonly size: number, readonly url: string, readonly previewUrl: string, readonly provider: string, readonly provider_metadata: any }> }> };
 
 export type ColorsFragmentFragment = { readonly __typename?: 'ComponentSettingsProductColor', readonly color: string, readonly HEX: string, readonly photo: ReadonlyArray<{ readonly __typename?: 'UploadFile', readonly name: string, readonly alternativeText: string, readonly caption: string, readonly formats: any, readonly hash: string, readonly ext: string, readonly mime: string, readonly size: number, readonly url: string, readonly previewUrl: string, readonly provider: string, readonly provider_metadata: any }> };
 
-export type LinkFragmentFragment = { readonly __typename?: 'ComponentUiLink', readonly title: string, readonly href: string };
+export type LinkFragmentFragment = { readonly __typename?: 'ComponentUiLink', readonly id: string, readonly title: string, readonly href: string };
 
 export type MediaFragmentFragment = { readonly __typename?: 'UploadFile', readonly name: string, readonly alternativeText: string, readonly caption: string, readonly formats: any, readonly hash: string, readonly ext: string, readonly mime: string, readonly size: number, readonly url: string, readonly previewUrl: string, readonly provider: string, readonly provider_metadata: any };
 
-export type MiddleNavFragmentFragment = { readonly __typename?: 'MiddleNav', readonly documentId: string, readonly title: string, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any, readonly Link: ReadonlyArray<{ readonly __typename?: 'ComponentUiLink', readonly title: string, readonly href: string }> };
+export type MiddleNavFragmentFragment = { readonly __typename?: 'MiddleNav', readonly documentId: string, readonly title: string, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any, readonly Link: ReadonlyArray<{ readonly __typename?: 'ComponentUiLink', readonly id: string, readonly title: string, readonly href: string }> };
 
 export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1390,12 +1470,12 @@ export type GetProductsQuery = { readonly __typename?: 'Query', readonly product
 export type GetHeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetHeaderQuery = { readonly __typename?: 'Query', readonly header: { readonly __typename?: 'Header', readonly documentId: string, readonly title: string, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any, readonly middle_nav: { readonly __typename?: 'MiddleNav', readonly documentId: string, readonly title: string, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any, readonly Link: ReadonlyArray<{ readonly __typename?: 'ComponentUiLink', readonly title: string, readonly href: string }> } } };
+export type GetHeaderQuery = { readonly __typename?: 'Query', readonly header: { readonly __typename?: 'Header', readonly documentId: string, readonly title: string, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any, readonly middle_nav: { readonly __typename?: 'MiddleNav', readonly documentId: string, readonly title: string, readonly createdAt: any, readonly updatedAt: any, readonly publishedAt: any, readonly Link: ReadonlyArray<{ readonly __typename?: 'ComponentUiLink', readonly id: string, readonly title: string, readonly href: string }> } } };
 
 export type GetHomePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'HomePage', readonly title: string, readonly banner: { readonly __typename?: 'Banner', readonly title: string, readonly media: ReadonlyArray<{ readonly __typename?: 'UploadFile', readonly name: string, readonly alternativeText: string, readonly caption: string, readonly formats: any, readonly hash: string, readonly ext: string, readonly mime: string, readonly size: number, readonly url: string, readonly previewUrl: string, readonly provider: string, readonly provider_metadata: any }>, readonly Link: { readonly __typename?: 'ComponentUiLink', readonly title: string, readonly href: string } } } };
+export type GetHomePageQuery = { readonly __typename?: 'Query', readonly homePage: { readonly __typename?: 'HomePage', readonly title: string, readonly banner: { readonly __typename?: 'Banner', readonly title: string, readonly media: ReadonlyArray<{ readonly __typename?: 'UploadFile', readonly name: string, readonly alternativeText: string, readonly caption: string, readonly formats: any, readonly hash: string, readonly ext: string, readonly mime: string, readonly size: number, readonly url: string, readonly previewUrl: string, readonly provider: string, readonly provider_metadata: any }>, readonly Link: { readonly __typename?: 'ComponentUiLink', readonly id: string, readonly title: string, readonly href: string } } } };
 
 export const MediaFragmentFragmentDoc = gql`
     fragment MediaFragment on UploadFile {
@@ -1415,6 +1495,7 @@ export const MediaFragmentFragmentDoc = gql`
     `;
 export const LinkFragmentFragmentDoc = gql`
     fragment LinkFragment on ComponentUiLink {
+  id
   title
   href
 }
